@@ -178,11 +178,20 @@ void sortBaseline(const uint32_t * in, int n, uint32_t * out, int bklSize)
 __global__ void computeHistogram(uint32_t * in, int n, int * hist, int nBins, int bit)
 {
     // TODO
+    // Each block computes its local hist using atomic on SMEM
+    extern __shared__ int s_bin[];
     int i = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    s_bin[threadIdx.x] = 0;
+    __syncthreads();
     if (i < n)
     {
         int bin = (in[i] >> bit) & (nBins - 1);
-        atomicAdd(&hist[bin * gridDim.x + blockIdx.x], 1);
+        atomicAdd(&s_bin[bin], 1);
+    }
+    __syncthreads();
+    if (threadIdx.x < nBins){
+        hist[threadIdx.x * gridDim.x + blockIdx.x] += s_bin[threadIdx.x];
     }
 }
 
@@ -191,6 +200,7 @@ __global__ void scanExclusiveBlk(int * in, int n, int * out, int * blkSums)
 {   
     // TODO
     extern __shared__ int s_data[];
+
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i > 0 && i < n){
         s_data[threadIdx.x] = in[i - 1];
@@ -211,6 +221,7 @@ __global__ void scanExclusiveBlk(int * in, int n, int * out, int * blkSums)
         s_data[threadIdx.x] += val;
         __syncthreads();
     }
+    
     if (i < n){
         out[i] = s_data[threadIdx.x];
     }
@@ -363,16 +374,13 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int bklSize)
         computeHistogram<<<gridHistSize, blockSize, smemBytes>>>(d_src, n, d_scan, nBins, bit);
         cudaDeviceSynchronize();
         
-
         // Scan
         scanExclusiveBlk<<<gridScanSize, blockSize, smemBytes>>>(d_scan, nBins * gridHistSize.x, d_scan, d_blkSums);
         cudaDeviceSynchronize();
-        
         CHECK(cudaMemcpy(blkSums, d_blkSums, gridScanSize.x * sizeof(int), cudaMemcpyDeviceToHost));
         for (int i = 1; i < gridScanSize.x; i++){
             blkSums[i] += blkSums[i - 1];
         }
-        
         CHECK(cudaMemcpy(d_blkSums, blkSums, gridScanSize.x * sizeof(int), cudaMemcpyHostToDevice));
         computeHistScan<<<gridScanSize, blockSize>>>(d_scan, nBins * gridHistSize.x, d_blkSums);
         cudaDeviceSynchronize();

@@ -190,6 +190,7 @@ __global__ void scanExclusiveBlk(int * in, int n, int * out, int * blkSums)
 {   
     // TODO
     extern __shared__ int s_data[];
+
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i > 0 && i < n){
         s_data[threadIdx.x] = in[i - 1];
@@ -210,6 +211,7 @@ __global__ void scanExclusiveBlk(int * in, int n, int * out, int * blkSums)
         s_data[threadIdx.x] += val;
         __syncthreads();
     }
+    
     if (i < n){
         out[i] = s_data[threadIdx.x];
     }
@@ -284,8 +286,7 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int bklSize)
         }
         uint32_t * temp = src;
         src = dst;
-        dst = temp; 
-
+        dst = temp;
     }
     // Copy result to "out"
     memcpy(out, src, n * sizeof(uint32_t));

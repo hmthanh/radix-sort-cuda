@@ -191,6 +191,7 @@ __global__ void scanExclusiveBlk(int * in, int n, int * out, int * blkSums)
 {   
     // TODO
     extern __shared__ int s_data[];
+    
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i > 0 && i < n){
         s_data[threadIdx.x] = in[i - 1];
@@ -211,6 +212,7 @@ __global__ void scanExclusiveBlk(int * in, int n, int * out, int * blkSums)
         s_data[threadIdx.x] += val;
         __syncthreads();
     }
+
     if (i < n){
         out[i] = s_data[threadIdx.x];
     }
@@ -349,7 +351,6 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
         computeHistogram<<<gridHistSize, blockSize, smemBytes>>>(d_src, n, d_scan, nBins, bit);
         cudaDeviceSynchronize();
         
-
         // Scan
         scanExclusiveBlk<<<gridScanSize, blockSize, smemBytes>>>(d_scan, nBins * gridHistSize.x, d_scan, d_blkSums);
         cudaDeviceSynchronize();
@@ -357,7 +358,6 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
         for (int i = 1; i < gridScanSize.x; i++){
             blkSums[i] += blkSums[i - 1];
         }
-        
         CHECK(cudaMemcpy(d_blkSums, blkSums, gridScanSize.x * sizeof(int), cudaMemcpyHostToDevice));
         computeHistScan<<<gridScanSize, blockSize>>>(d_scan, nBins * gridHistSize.x, d_blkSums);
         cudaDeviceSynchronize();
