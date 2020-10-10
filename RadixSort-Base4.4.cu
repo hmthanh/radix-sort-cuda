@@ -331,17 +331,13 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
     int * scan = (int * )malloc(nBins * gridHistSize.x * sizeof(int));
     int * blkSums = (int *)malloc(gridScanSize.x * sizeof(int));
 
-    uint32_t * src = (uint32_t *)malloc(n * sizeof(uint32_t));
-    memcpy(src, in, n * sizeof(uint32_t));
-
-    int *d_hist, *d_scan, *d_blkSums;
-    CHECK(cudaMalloc(&d_hist, nBins * gridHistSize.x * sizeof(int)));
+    int *d_scan, *d_blkSums;
     CHECK(cudaMalloc(&d_scan, nBins * gridHistSize.x * sizeof(int)));
     CHECK(cudaMalloc(&d_blkSums, gridScanSize.x * sizeof(int)));
 
     uint32_t * d_src, *d_dst;
     CHECK(cudaMalloc(&d_src, n * sizeof(uint32_t)));
-    CHECK(cudaMemcpy(d_src, src, n * sizeof(uint32_t), cudaMemcpyHostToDevice)); // copy to device
+    CHECK(cudaMemcpy(d_src, in, n * sizeof(uint32_t), cudaMemcpyHostToDevice)); // copy to device
     CHECK(cudaMalloc(&d_dst, n * sizeof(uint32_t)));
 
     size_t smemBytes = blockSize.x * sizeof(int);
@@ -381,7 +377,6 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
     CHECK(cudaMemcpy(out, d_src, n * sizeof(uint32_t), cudaMemcpyDeviceToHost));
 
     CHECK(cudaFree(d_src));
-    CHECK(cudaFree(d_hist));
     CHECK(cudaFree(d_scan));
     CHECK(cudaFree(d_blkSums));
     

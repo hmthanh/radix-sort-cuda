@@ -1,4 +1,4 @@
-# Simple Radix sort by CUDA (Parallel Programming with CUDA)
+# Simple Radix sort (Parallel Programming with CUDA)
 
 Radix sort implement by cuda
 
@@ -21,24 +21,23 @@ GMEM: 17071734784 byte
 SMEM per SM: 65536 byte
 SMEM per block: 49152 byte
 ****************************
-
+ 
 Input size: 16777217
-
+Block size : 512
+ 
 Radix Sort by host
-Time: 1203.316 ms
-
+Time: 1175.255 ms
+ 
 Baseline Radix Sort (highlight)
-Time: 6345.300 ms
+Time: 6418.302 ms
 CORRECT :)
-
+ 
 Radix Sort by device
-Time: 137.674 ms
-
-AVG TIME: 141.354 ms
+Time: 116.211 ms
 CORRECT :)
-
+ 
 Radix Sort with thrust
-Time: 64.244 ms
+Time: 61.713 ms
 CORRECT :)
 ```
 
