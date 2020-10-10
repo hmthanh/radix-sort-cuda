@@ -1,4 +1,3 @@
-%%cu
 /*
 Radix sort final
 */
@@ -376,7 +375,7 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
     
     for (int bit = 0; bit < sizeof(uint32_t) * 8; bit += nBits)
     {
-        // Compute "hist" of the current digit
+        // Hist
         CHECK(cudaMemset(d_scan, 0, nBins * gridHistSize.x * sizeof(int)));
         computeHistogram<<<gridHistSize, blockSize, smemHistBytes>>>(d_src, n, d_scan, nBins, bit);
         cudaDeviceSynchronize();
@@ -396,7 +395,7 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
         scatter<<<gridScatterSize, blockSize, smemScatterBytes>>>(d_src, n, nBits, bit, nBins, d_scan, d_dst);
         cudaDeviceSynchronize();
         
-        // Swap "src" and "dst"
+        // Swap
         uint32_t * temp = d_src;
         d_src = d_dst;
         d_dst = temp;

@@ -1,4 +1,3 @@
-%%cu
 /*
 Baseline 2.2 : Song song 2 bước hist và scan
 */

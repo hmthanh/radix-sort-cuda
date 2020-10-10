@@ -1,4 +1,3 @@
-%%cu
 /*
 Baseline 2.1 : Song song 2 bước hist
 */

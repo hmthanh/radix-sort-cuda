@@ -1,4 +1,3 @@
-%%cu
 /*
 Baseline 4.4 : Cài đặt scatter song song
 */

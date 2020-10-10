@@ -1,4 +1,3 @@
-%%cu
 /*
 Baseline 1 : Thuật toán Radix Sort tuần tự
 */

@@ -1,8 +1,9 @@
 # Simple Radix sort (Parallel Programming with CUDA)
 
+File : `build.cu`
+
 ```c
-File : RadixSort-Final2.cu
-53 % of thrust
+56 % of thrust
 ```
 
 Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing

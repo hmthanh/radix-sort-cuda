@@ -1,4 +1,3 @@
-%%cu
 /*
 Radix sort final
 */
