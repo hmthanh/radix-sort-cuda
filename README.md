@@ -5,7 +5,7 @@ Radix sort implement by cuda
 Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing
 
 ```c
-40 % of thrust
+53 % of thrust
 ```
 
 Result :
