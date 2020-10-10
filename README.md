@@ -1,14 +1,27 @@
 # Simple Radix sort (Parallel Programming with CUDA)
 
-Radix sort implement by cuda
-
-Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing
-
 ```c
+File : RadixSort-Final2.cu
 53 % of thrust
 ```
 
-Result :
+Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing
+
+### Build & Running
+
+Build
+
+```sh
+!nvcc build.cu -o run_radix_final
+```
+
+Run
+
+```sh
+!./run_radix_final 128
+```
+
+### Performance
 
 ```c
 **********GPU info**********

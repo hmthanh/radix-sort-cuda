@@ -393,7 +393,6 @@ void sortByDevice(const uint32_t * in, int n, uint32_t * out, int blkSize)
         cudaDeviceSynchronize();
 
         // Scatter
-        //scatter<<<gridScatterSize, blockSize, smemScatterBytes>>>(d_src, n, nBits, bit, nBins, d_scan, d_dst);
         scatter<<<gridScatterSize, blockSize, smemScatterBytes>>>(d_src, n, nBits, bit, nBins, d_scan, d_dst);
         cudaDeviceSynchronize();
         
