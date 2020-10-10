@@ -3,7 +3,7 @@
 File : `build.cu`
 
 ```c
-56 % of thrust
+81 % of thrust library
 ```
 
 Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing
@@ -26,32 +26,31 @@ Run
 
 ```c
 **********GPU info**********
-Name: Tesla P100-PCIE-16GB
-Compute capability: 6.0
-Num SMs: 56
+Name: Tesla V100-SXM2-16GB
+Compute capability: 7.0
+Num SMs: 80
 Max num threads per SM: 2048
 Max num warps per SM: 64
-GMEM: 17071734784 byte
-SMEM per SM: 65536 byte
+GMEM: 16914055168 byte
+SMEM per SM: 98304 byte
 SMEM per block: 49152 byte
 ****************************
- 
+
 Input size: 16777217
-Block size : 512
- 
+
 Radix Sort by host
-Time: 1175.255 ms
- 
+Time: 1172.387 ms
+
 Baseline Radix Sort (highlight)
-Time: 6418.302 ms
+Time: 6524.865 ms
 CORRECT :)
- 
+
 Radix Sort by device
-Time: 116.211 ms
+Time: 79.713 ms
 CORRECT :)
- 
+
 Radix Sort with thrust
-Time: 61.713 ms
+Time: 62.504 ms
 CORRECT :)
 ```
 
