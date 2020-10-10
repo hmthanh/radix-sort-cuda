@@ -493,7 +493,7 @@ int main(int argc, char ** argv)
     if (argc == 2)
         blockSize = atoi(argv[1]);
 
-    printf("Block size : <<<%d, %d>>>");
+    printf("Block size : %d\n", blockSize);
     // SORT BY HOST
     sort(in, n, correctOut);
     // printArray(correctOut, n);
@@ -501,7 +501,7 @@ int main(int argc, char ** argv)
     // SORT BY BASELINE
     sort(in, n, out_baseline, true, blockSize, 1);
     checkCorrectness(out_baseline, correctOut, n);
-    
+        
     // SORT BY DEVICE    
     sort(in, n, out, true, blockSize, 2);
     checkCorrectness(out, correctOut, n);

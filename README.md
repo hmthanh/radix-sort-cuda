@@ -1,11 +1,11 @@
-# radix-sort-cuda
+# Simple Radix sort by CUDA (Parallel Programming with CUDA)
 
 Radix sort implement by cuda
 
 Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing
 
 ```c
-250 % of thrust
+40 % of thrust
 ```
 
 Result :
