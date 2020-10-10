@@ -1,4 +1,3 @@
-%%cu
 /*
 Radix sort final
 */
@@ -494,6 +493,7 @@ int main(int argc, char ** argv)
     if (argc == 2)
         blockSize = atoi(argv[1]);
 
+    printf("Block size : <<<%d, %d>>>");
     // SORT BY HOST
     sort(in, n, correctOut);
     // printArray(correctOut, n);
@@ -502,20 +502,8 @@ int main(int argc, char ** argv)
     sort(in, n, out_baseline, true, blockSize, 1);
     checkCorrectness(out_baseline, correctOut, n);
     
-    // SORT BY DEVICE
-    // Calcute avg
-    GpuTimer timer; 
-    
-    float avg_time = 0;
-    int loop = 16;
-    printf("\nRadix sort by device avg\n");
-    for (int i = 0; i < loop; i++){
-        timer.Start();
-        sort(in, n, out, true, blockSize, 2);
-        timer.Stop();
-        avg_time += timer.Elapsed();
-    }
-    printf("AVG TIME: %.f ms\n", avg_time / loop);
+    // SORT BY DEVICE    
+    sort(in, n, out, true, blockSize, 2);
     checkCorrectness(out, correctOut, n);
 
     // SORT BY THRUST

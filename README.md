@@ -1,12 +1,16 @@
 # radix-sort-cuda
+
 Radix sort implement by cuda
-```
+
+Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiYL/view?usp=sharing
+
+```c
 250 % of thrust
 ```
 
 Result :
 
-```
+```c
 **********GPU info**********
 Name: Tesla P100-PCIE-16GB
 Compute capability: 6.0
@@ -46,9 +50,9 @@ Tối ưu hóa Radix Sort trên GPU, dựa trên ý tưởng trong bài báo nà
 có thể sẽ dễ hiểu hơn). Nhóm bạn có thể bắt đầu từ file code “11-sort-sol.cu” mà mình đã upload trên
 moodle (bạn lấy bản mới nhất, ở đầu file có dòng “Update 2020/09/10”).
 
-## Yêu cầu của đồ án:
+## Yêu cầu của đồ án
 
-### Làm việc nhóm. 
+### Làm việc nhóm
 
 Tất cả các thành viên trong nhóm đều phải hiểu về đồ án mà nhóm mình làm (tất nhiên
 là phải hiểu cả code). Ví dụ, nếu trong nhóm có một bạn hiểu – được 10 điểm – và có một bạn không hiểu
@@ -59,19 +63,23 @@ làm việc nhóm.
 
 Chương trình của nhóm bạn phải chạy đúng với các block size khác nhau; nhóm bạn được phép giả định: (i) block size = 2k
 với k là số nguyên dương, và (ii) block size không quá nhỏ
-để làm cho số lượng block vượt qua mức tối đa. 
+để làm cho số lượng block vượt qua mức tối đa.
 Chương trình của bạn cũng phải chạy đúng với k = 1, 2,
 4, 8 (16 sẽ làm số lượng bin lớn và SMEM sẽ không chứa nổi nên thôi).
+
 ### Thời gian chạy
 
 Thời gian chạy phải tương đương với thời gian chạy của thuật toán sort song song trong
 thư viện Thrust thì mới có thể được 10 điểm.
+
 ### Slide báo cáo
 
 Trong slide báo cáo, nhóm bạn sẽ trình bày những nội dung sau:
+
 * Quá trình tối ưu hóa (đi từ tuần tự đi lên, đi từ đơn giản đi lên):
 
 o 4 phiên bản baseline:
+
 * Cài đặt tuần tự thuật toán Radix Sort tuần tự (đã có trong file “11-sort-sol.cu”).
 * Cài đặt song song 2 bước histogram và scan của thuật toán Radix Sort tuần tự.
 * Cài đặt song song thuật toán Radix Sort với k = 1 bit (trang 19-21 trong file slide
@@ -110,7 +118,9 @@ tổng (chèn trước dòng của Thrust); nhận xét về kết quả chạy 
 nhau và với các k khác nhau để cho thấy là đã chạy đúng và đã tổng quát hóa.
 Các file code. Cần lưu lại tất cả các phiên bản (tương ứng với các phiên bản được trình bày trong file slide).
 Vấn đáp và nộp bài trên moodle
+
 ### Vấn đáp
+
 * Thời gian vấn đáp: vào cuối thời gian thi của trường, cụ thể thì sẽ thông báo sau.
 * Online hay offline? Sẽ thông báo sau.
 * Khi vấn đáp, mỗi nhóm chuẩn bị: laptop, file làm việc nhóm, slide, code.
