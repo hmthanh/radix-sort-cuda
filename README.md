@@ -1,7 +1,42 @@
 # radix-sort-cuda
 Radix sort implement by cuda
+```
+250 % of thrust
+```
 
-2.5 % of thrust
+Result :
+
+```
+**********GPU info**********
+Name: Tesla P100-PCIE-16GB
+Compute capability: 6.0
+Num SMs: 56
+Max num threads per SM: 2048
+Max num warps per SM: 64
+GMEM: 17071734784 byte
+SMEM per SM: 65536 byte
+SMEM per block: 49152 byte
+****************************
+
+Input size: 16777217
+
+Radix Sort by host
+Time: 1203.316 ms
+
+Baseline Radix Sort (highlight)
+Time: 6345.300 ms
+CORRECT :)
+
+Radix Sort by device
+Time: 137.674 ms
+
+AVG TIME: 141.354 ms
+CORRECT :)
+
+Radix Sort with thrust
+Time: 64.244 ms
+CORRECT :)
+```
 
 # Đồ án cuối kỳ: tối ưu hóa Radix Sort trên GPU
 
