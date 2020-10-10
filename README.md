@@ -13,13 +13,21 @@ Colab sharing : https://drive.google.com/file/d/1WVOGq5s0kQCv0x9l81ifpJYFmQqOCiY
 Build
 
 ```sh
-!nvcc build.cu -o run_radix_final
+!nvcc build.cu -o build
 ```
 
 Run
 
 ```sh
-!./run_radix_final 128
+!./build 128
+```
+
+Profiling
+
+```sh
+!nvcc build.cu -o build -Wno-deprecated-gpu-targets
+
+!nvprof ./build
 ```
 
 ### Performance
