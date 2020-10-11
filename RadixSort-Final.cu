@@ -120,7 +120,7 @@ void sortBaseline(const uint32_t * in, int n, uint32_t * out, int blkSize)
     dim3 gridSize((n - 1) / blockSize.x + 1); // grid size
 
     int * hist = (int *)malloc(nBins * gridSize.x * sizeof(int));
-    int *histScan = (int * )malloc(nBins * gridSize.x * sizeof(int));
+    int * histScan = (int * )malloc(nBins * gridSize.x * sizeof(int));
 
     uint32_t * src = (uint32_t *)malloc(n * sizeof(uint32_t));
     memcpy(src, in, n * sizeof(uint32_t));
@@ -164,6 +164,7 @@ void sortBaseline(const uint32_t * in, int n, uint32_t * out, int blkSize)
                 }
             }
         }
+
         uint32_t * temp = src;
         src = dst;
         dst = temp; 
@@ -183,7 +184,7 @@ __global__ void computeHistogram(uint32_t * in, int n, int * hist, int nBins, in
     // TODO
     extern __shared__ int s_bin[];
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    int delta = (nBins - 1) / blockDim.x + 1; // nBins / blockDim
+    int delta = (nBins - 1) / blockDim.x + 1; // make sure nBins is not over blockDim.x
 
     for (int j = 0; j < delta; j++)
     {
@@ -261,7 +262,7 @@ __global__ void scatter(uint32_t * in, int n, int nBits, int bit, int nBins, int
     int * dst = (int *)&s_hist[blockDim.x];
     int * dst_ori = (int *)&dst[blockDim.x];
     int * startIndex = (int *)&dst_ori[blockDim.x]; // Cấp phát nBins
-    int * scan = (int *)&startIndex[nBins]; 
+    int * scan = (int *)&startIndex[nBins];
     int * hist = (int *)&scan[blockDim.x];
 
     int id = blockIdx.x * blockDim.x + threadIdx.x;
